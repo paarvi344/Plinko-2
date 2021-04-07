@@ -7,7 +7,9 @@ var particles = [];
 var plinkos = [];
 var divisions =[];
 var divisionHeight=300;
+
 var score =0;
+
 var particle;
 var gameState= PLAY;
 
@@ -61,7 +63,8 @@ function draw() {
   textSize(20)
 
 
- text("Score : ",20,30);
+ text("Score: "+score,20,30);
+
  text("500",8,550);
  text("500",90,550);
  text("500",180,550);
@@ -74,7 +77,6 @@ function draw() {
  text("200",725,550);
  
 
-mousePressed();
 
 
   Engine.update(engine);
@@ -86,9 +88,9 @@ mousePressed();
      
    }
    if(frameCount%60===0){
-     particles.push(new Particle(random(width/2-30, width/2+30), 10,10));
-     score++;
-   }
+    particles.push(new Particle(random(width/2-30, width/2+30), 10,10));
+    
+  }
  
   for (var j = 0; j < particles.length; j++) {
    
@@ -98,6 +100,7 @@ mousePressed();
      
      divisions[k].display();
    }
+  }
 function mousePressed(){
   if(gameState!=="end"){
     particle=new Particle(mouseX,10,10,10);
@@ -107,10 +110,12 @@ function mousePressed(){
 if(particle!=null){
   particle.display();
   if(particle.body.position.y>760){
-    score=score+500;
-    particle=null;
+    if(particle.body.position.x<300){
+      score=score+500;
+      particle=null;  
+    }
   }
+    
 }
  
 
-}
